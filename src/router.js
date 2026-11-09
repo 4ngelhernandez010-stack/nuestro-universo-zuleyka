@@ -33,6 +33,13 @@ export async function handleRequest(req, res) {
       return res.end(content);
     }
 
+    const publicData = url.pathname.match(/^\/data\/(reasons|memories|notes)\.json$/);
+    if (publicData && req.method === 'GET') {
+      const content = await readFile(join(DATA_DIR, `${publicData[1]}.json`));
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      return res.end(content);
+    }
+
     const requested = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1));
     const target = normalize(join(PUBLIC_DIR, requested));
     if (!target.startsWith(PUBLIC_DIR)) return sendError(res, 403, 'Ruta no permitida.');

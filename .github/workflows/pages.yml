@@ -1,0 +1,38 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v6
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Preparar datos iniciales
+        run: |
+          mkdir -p public/data
+          cp data/reasons.json data/memories.json data/notes.json public/data/
+      - name: Subir el sitio estático
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - name: Publicar el sitio
+        id: deployment
+        uses: actions/deploy-pages@v4

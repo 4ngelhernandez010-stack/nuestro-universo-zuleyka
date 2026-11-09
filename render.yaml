@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: nuestro-universo-zuleyka
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: HER_NAME
+        value: Zuleyka
+      - key: SPECIAL_DATE
+        value: 23 de junio

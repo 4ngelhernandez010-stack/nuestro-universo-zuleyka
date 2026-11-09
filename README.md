@@ -1,36 +1,29 @@
 # Nuestro pequeño universo
 
-Una web hecha para Zuleyka: una carta interactiva, 1.000 razones distintas para quererla, una cápsula de recuerdos con fotos y un rincón para guardar todas las notitas que quiera. El 23 de junio aparece como el día de la declaración y el cumpleaños, sin asumir el año.
+Una web hecha para Zuleyka: una carta interactiva, mil razones, una cápsula para recuerdos con fotos y un rincón para sus notitas. El 23 de junio aparece como el día en que Angel se declaró y el cumpleaños de Zuleyka.
 
-## Ejecutarla
+## Versión estática
 
-Requiere Node.js 20 o posterior. No necesita paquetes externos.
+La interfaz funciona como sitio estático y no necesita un servidor Node.js para sus funciones. Las notas, recuerdos y fotos se guardan en el almacenamiento local del navegador que ella use. No se sincronizan entre dispositivos ni se comparten automáticamente con Angel. Si borra los datos del navegador, puede perderlos.
+
+## Ejecutar en local
+
+Requiere Node.js 20 o posterior y no necesita instalar paquetes:
 
 ```bash
 npm start
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). Para desarrollo con reinicio automático: `npm run dev`.
+Abra <http://localhost:3000>.
 
-El servidor crea `data/memories.json`, `data/reasons.json` y `data/notes.json` al arrancar. Esos archivos se quedan fuera de Git para no publicar contenido personal. Si quieres conservarlos, haz una copia de `data/` antes de borrar o reemplazar el servidor.
+## Publicar con GitHub Pages
 
-## Subir el código a GitHub
+El flujo de trabajo `.github/workflows/pages.yml` prepara los datos iniciales y publica el contenido de `public/` al actualizar la rama `main`. En GitHub, vaya a **Settings → Pages** y seleccione **GitHub Actions** como origen de publicación. La web se publicará en:
 
-Desde esta carpeta, crea un repositorio en GitHub y ejecuta:
+<https://4ngelhernandez010-stack.github.io/nuestro-universo-zuleyka/>
 
-```bash
-git init
-git add .
-git commit -m "Crea el universo de Zuleyka"
-git branch -M main
-git remote add origin https://github.com/4ngelherandez.010/nuestro-universo.git
-git push -u origin main
-```
+Las Pages pueden ser visibles para cualquier persona en internet incluso cuando el repositorio fuente permanece privado, si el plan de GitHub lo permite. En cuentas GitHub Free, Pages requiere un repositorio público. Antes de hacerlo público, recuerde que el código y el texto de la carta también quedarán visibles.
 
-Guarda el repositorio como **privado** si quieres mantener el código y el contenido de la carta solo entre ustedes. La aplicación no tiene cuentas ni inicio de sesión: recuerdos y notitas son datos públicos si despliegas el sitio en internet.
+## Backend opcional
 
-## Publicarla con backend
-
-GitHub Pages solo aloja archivos estáticos; no ejecuta este servidor Node. El archivo `render.yaml` deja listo el despliegue en Render: conecta el repositorio, acepta la configuración detectada y Render construirá la web con su backend. Define `HER_NAME` y `SPECIAL_DATE` en las variables de entorno si quieres cambiarlos.
-
-El almacenamiento actual usa archivos JSON locales. En un servicio gratuito, esos archivos pueden reiniciarse durante cambios o reinicios de la instancia. Para guardar recuerdos de manera duradera en internet, conecta una base de datos persistente antes de compartir el enlace ampliamente.
+El servidor Node.js y sus controladores siguen en el repositorio como referencia. La versión estática de GitHub Pages no los utiliza; la aplicación publicada guarda sus datos en el dispositivo de la visitante.

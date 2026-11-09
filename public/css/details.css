@@ -1,0 +1,6 @@
+.memory-item p{white-space:pre-line}
+.memory-item:has(.memory-thumb){grid-template-columns:84px 1fr 25px;align-items:start}
+.memory-item:has(.memory-thumb) .memory-icon{width:76px;height:76px;border-radius:10px}
+.memory-item:has(.memory-thumb) .memory-thumb{border-radius:10px}
+.button:disabled{opacity:.65;cursor:wait;transform:none}
+@media(max-width:650px){.memory-item:has(.memory-thumb){grid-template-columns:68px 1fr 20px}.memory-item:has(.memory-thumb) .memory-icon{width:60px;height:60px}}
